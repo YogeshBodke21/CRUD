@@ -1,0 +1,49 @@
+{% extends "app/base.html" %}
+{% block title %} Student Info {% endblock %}
+{% block content %}
+<div class="row ">
+    <div class="col-sm-3 ">
+        <h4 class="alert alert-primary">Add Student </h4>
+        <form method="POST" class="text-start">
+            {% csrf_token %} 
+            {{form.as_p}}
+            <input type="submit" class="btn btn-success col-6" value="Submit">
+        </form>
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="col-sm-9 ">
+        <h4 class="alert alert-primary">Student Information</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Mobile No</th>
+                        <th scope="col">Fee</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in obj %}
+                    <tr>
+                        <th scope="row">{{i.id}}</th>
+                        <td>{{i.name}}</td>
+                        <td>{{i.Mobile_No}}</td>
+                        <td>{{i.Fee}}</td>
+                        <td>{{i.Address}}</td>
+                        <td>
+                            <a href="{% url "update_url" i.id %}" class="btn btn-warning btn-sm pt-1.6 mt-1 text-white float-start">Update</a>
+                            <form action="{% url "delete_url" i.id %}" method="POST">
+                            {% csrf_token %}
+                            <input  type="submit" value="Delete" class="btn btn-danger float-end ">
+                            </form>  
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

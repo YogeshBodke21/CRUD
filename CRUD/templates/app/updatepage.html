@@ -1,0 +1,15 @@
+{% extends "app/base.html" %}
+{% block title %} Update {% endblock %}
+{% block content %}
+<div class="row ">
+    <div class="col-sm-6 offset-3 ">
+        <h4 class="alert alert-primary">Update Student Information </h4>
+        <form method="POST" class="text-start">
+            {% csrf_token %} 
+            {{form.as_p}}
+            <input type="submit" class="btn btn-success col-6 btn-sm" value="Submit">
+            <a href="{% url "retrieve" %}" class="btn btn-warning text-white col-6 btn-sm float-end">Back To Home</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
